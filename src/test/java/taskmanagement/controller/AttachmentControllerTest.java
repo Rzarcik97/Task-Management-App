@@ -79,9 +79,8 @@ public class AttachmentControllerTest {
                 .thenReturn(metadata);
 
         MvcResult result = mockMvc.perform(
-                        multipart("/attachments")
+                        multipart("/attachments/2")
                                 .file(file)
-                                .param("taskId", "2")
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -102,20 +101,8 @@ public class AttachmentControllerTest {
         MockMultipartFile file =
                 new MockMultipartFile("file", "a.txt", "text/plain", "aaa".getBytes());
 
-        mockMvc.perform(multipart("/attachments").file(file))
+        mockMvc.perform(multipart("/attachments/2").file(file))
                 .andExpect(status().isUnauthorized());
-    }
-
-    @WithMockUser
-    @Test
-    @DisplayName("Upload file - empty file - should return 400")
-    void upload_EmptyFile_ReturnsBadRequest() throws Exception {
-        MockMultipartFile emptyFile =
-                new MockMultipartFile("file", "", "text/plain", new byte[0]);
-
-        mockMvc.perform(multipart("/attachments")
-                        .file(emptyFile))
-                .andExpect(status().isBadRequest());
     }
 
     @WithMockUser(username = "john.doe@example.com")

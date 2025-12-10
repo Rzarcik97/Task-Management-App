@@ -88,8 +88,7 @@ public class CommentControllerTest {
     @DisplayName("Get comments - valid task - should return list")
     void getComments_ValidTask_ReturnsList() throws Exception {
 
-        mockMvc.perform(get("/comments")
-                        .param("taskId", "1"))
+        mockMvc.perform(get("/comments/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -99,8 +98,7 @@ public class CommentControllerTest {
     @DisplayName("Get comments - task does not exist - returns empty list")
     void getComments_TaskNotFound_ReturnsEmptyList() throws Exception {
 
-        mockMvc.perform(get("/comments")
-                        .param("taskId", "9999"))
+        mockMvc.perform(get("/comments/9999"))
                 .andExpect(status().isNotFound());
     }
 
