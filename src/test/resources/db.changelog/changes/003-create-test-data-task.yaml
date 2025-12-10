@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-create-test-data-task
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Design API Endpoints"
+              - column:
+                  name: description
+                  value: "Create REST API for task management including authentication and task CRUD operations."
+              - column:
+                  name: due_date
+                  valueDate: "2025-11-20"
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: assignee_id
+                  value: 1
+              - column:
+                  name: priority
+                  value: "HIGH"
+              - column:
+                  name: status
+                  value: "IN_PROGRESS"
+
+        - insert:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Implement Notification Service"
+              - column:
+                  name: description
+                  value: "Develop email and reminder notification system."
+              - column:
+                  name: due_date
+                  valueDate: "2025-11-25"
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: assignee_id
+                  value: 2
+              - column:
+                  name: priority
+                  value: "MEDIUM"
+              - column:
+                  name: status
+                  value: "NOT_STARTED"
+
+        - insert:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Prepare Project Documentation"
+              - column:
+                  name: description
+                  value: "Write user guide and developer documentation."
+              - column:
+                  name: due_date
+                  valueDate: NULL
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: assignee_id
+                  value: 3
+              - column:
+                  name: priority
+                  value: "LOW"
+              - column:
+                  name: status
+                  value: "IN_PROGRESS"

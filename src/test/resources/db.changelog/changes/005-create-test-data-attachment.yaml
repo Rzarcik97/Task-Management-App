@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-create-test-data-attachment
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: attachments
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: dropbox_file_id
+                  value: "dbx_001"
+              - column:
+                  name: filename
+                  value: "project-plan.pdf"
+              - column:
+                  name: path
+                  value: "/docs/project-plan.pdf"
+              - column:
+                  name: upload_date
+                  valueDate: "2025-01-01T10:00:00"
+              - column:
+                  name: uploaded_by
+                  value: 1
+
+        - insert:
+            tableName: attachments
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: task_id
+                  value: 2
+              - column:
+                  name: dropbox_file_id
+                  value: "dbx_002"
+              - column:
+                  name: filename
+                  value: "bug-report.txt"
+              - column:
+                  name: path
+                  value: "/reports/bug-report.txt"
+              - column:
+                  name: upload_date
+                  valueDate: "2025-01-03T15:30:00"
+              - column:
+                  name: uploaded_by
+                  value: 2
+
+        - insert:
+            tableName: attachments
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: task_id
+                  value: 3
+              - column:
+                  name: dropbox_file_id
+                  value: "dbx_003"
+              - column:
+                  name: filename
+                  value: "ui-design.png"
+              - column:
+                  name: path
+                  value: "/design/ui-design.png"
+              - column:
+                  name: upload_date
+                  valueDate: "2025-01-05T09:15:00"
+              - column:
+                  name: uploaded_by
+                  value: 3

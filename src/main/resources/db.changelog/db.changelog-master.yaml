@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/changes/01-init-tables-user.yml
+  - include:
+      file: db.changelog/changes/02-init-tables-project.yml
+  - include:
+      file: db.changelog/changes/03-init-tables-task.yml
+  - include:
+      file: db.changelog/changes/04-init-tables-label.yml
+  - include:
+      file: db.changelog/changes/05-init-tables-attachment.yml
+  - include:
+      file: db.changelog/changes/06-init-tables-comment.yml
+  - include:
+      file: db.changelog/changes/07-init-tables-projectMember.yml
+  - include:
+      file: db.changelog/changes/08-init-tables-UserVerificationToken.yml
+  - include:
+      file: db.changelog/changes/09-add-foreign-keys-and-relations.yml
+  - include:
+      file: db.changelog/changes/10-create-admin-user.yml

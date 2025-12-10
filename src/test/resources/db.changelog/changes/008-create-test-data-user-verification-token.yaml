@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-create-test-data-user-verification-token
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: verification_tokens
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: verification_code
+                  value: "$2a$10$6B9LitvjfNjp2zuRol8b6eH2iUOpOxRTMha0.0oYsNRKwfjBtN0by" #123456
+              - column:
+                  name: new_value
+                  value: "$2a$10$encryptedPassword123"
+              - column:
+                  name: expiration_time
+                  valueDate: "2035-01-01T00:00:00"
+              - column:
+                  name: type
+                  value: "PASSWORD_CHANGE"
+
+        - insert:
+            tableName: verification_tokens
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: verification_code
+                  value: "$2a$10$EfY9NnR2HjzQP3MlX968neDyNyiRr7ZAxBGqcyDmAunajlDSs6LzW" # 654321
+              - column:
+                  name: new_value
+                  value: "newemail@example.com"
+              - column:
+                  name: expiration_time
+                  valueDate: "2035-01-01T00:00:00"
+              - column:
+                  name: type
+                  value: "EMAIL_CHANGE"

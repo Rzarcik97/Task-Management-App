@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-test-data-project
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Task Management System"
+              - column:
+                  name: description
+                  value: "System for managing tasks and teams with labels, attachments, and comments."
+              - column:
+                  name: start_date
+                  valueDate: "2025-01-01"
+              - column:
+                  name: end_date
+                  valueDate: "2025-06-30"
+              - column:
+                  name: status
+                  value: "IN_PROGRESS"
+
+        - insert:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "E-commerce Platform"
+              - column:
+                  name: description
+                  value: "Online store project with catalog, cart, and order management."
+              - column:
+                  name: start_date
+                  valueDate: "2024-10-01"
+              - column:
+                  name: end_date
+                  valueDate: "2025-03-31"
+              - column:
+                  name: status
+                  value: "INITIATED"
+
+        - insert:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Mobile Banking App"
+              - column:
+                  name: description
+                  value: "Cross-platform app for personal banking and transactions."
+              - column:
+                  name: start_date
+                  valueDate: "2024-06-15"
+              - column:
+                  name: end_date
+                  valueDate: NULL
+              - column:
+                  name: status
+                  value: "COMPLETED"

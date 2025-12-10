@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-test-data-user
+      author: Karol Gajda
+      context: test
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: username, value: "john_doe" }
+              - column: { name: password, value: "$2a$10$JzRlGKGPuAU.W4mqgpULFeHaQc.HNbOVzrxeXJ9/LuyA3ldo7c376" } # User123
+              - column: { name: email, value: "john.doe@example.com" }
+              - column: { name: first_name, value: "John" }
+              - column: { name: last_name, value: "Doe" }
+              - column: { name: role, value: "USER" }
+              - column: { name: is_deleted, valueBoolean: false }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 3 }
+              - column: { name: username, value: "jane_smith" }
+              - column: { name: password, value: "$2a$10$.YScSlNwO6/ag8cH8MHIAutgof5RlliXno1Onq8qvAjYJDTxgNChq" } # User321
+              - column: { name: email, value: "jane.smith@example.com" }
+              - column: { name: first_name, value: "Jane" }
+              - column: { name: last_name, value: "Smith" }
+              - column: { name: role, value: "USER" }
+              - column: { name: is_deleted, valueBoolean: false }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 4 }
+              - column: { name: username, value: "Anna smith" }
+              - column: { name: password, value: "$2a$10$3XDwKWXWvFDg4I.eifSWPOwiBd43thm0iNuQO.aXr/hnMwRycRo0K" } # User123
+              - column: { name: email, value: "anna@example.com" }
+              - column: { name: first_name, value: "Anna" }
+              - column: { name: last_name, value: "Smith" }
+              - column: { name: role, value: "USER" }
+              - column: { name: is_deleted, valueBoolean: false }

@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-test-data-projectmember
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role
+                  value: "MANAGER"
+
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: role
+                  value: "MEMBER"
+
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: role
+                  value: "VIEWER"
+
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: role
+                  value: "MANAGER"

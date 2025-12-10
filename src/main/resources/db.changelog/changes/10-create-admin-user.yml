@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10-seed-admin-user
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "$2a$10$ly8W60WZ.ioq0v7U5bNuNOIV2f9ESoXPIlaQ.e5Nw1qNsCtie3Wwa"
+#                           Admin123
+              - column:
+                  name: email
+                  value: "admin@taskmanager.com"
+              - column:
+                  name: first_name
+                  value: "System"
+              - column:
+                  name: last_name
+                  value: "Administrator"
+              - column:
+                  name: role
+                  value: "ADMIN"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
