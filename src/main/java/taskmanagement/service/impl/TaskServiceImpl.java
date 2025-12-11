@@ -118,10 +118,9 @@ public class TaskServiceImpl implements TaskService {
                     && request.description() == null
                     && request.dueDate() == null
                     && request.assigneeEmail() == null
-                    && request.priority() == null
-                    && request.labelIds() == null)) {
+                    && request.priority() == null)) {
                 throw new AccessDeniedException(
-                        "Assignee can update only the task status");
+                        "Assignee can update only the task status and Labels");
             }
         }
         taskMapper.updateFromPatch(request, task);

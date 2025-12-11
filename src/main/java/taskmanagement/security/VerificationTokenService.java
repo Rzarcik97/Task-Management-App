@@ -1,6 +1,7 @@
 package taskmanagement.security;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,7 +28,7 @@ public class VerificationTokenService {
         token.setUser(user);
         token.setVerificationCode(hashedCode);
         token.setType(type);
-        token.setExpirationTime(LocalDateTime.now().plusMinutes(20));
+        token.setExpirationTime(LocalDateTime.now(ZoneOffset.UTC).plusMinutes(20));
         token.setNewValue(newValue);
         tokenRepository.save(token);
         log.info("Token created successfully");
@@ -37,7 +38,7 @@ public class VerificationTokenService {
     public boolean validateCode(User user, String rawCode, UserVerificationToken.TokenType type) {
         log.info("checking verification code for user: id = {}", user.getId());
         return tokenRepository.findByUserAndType(user, type)
-                .filter(t -> t.getExpirationTime().isAfter(LocalDateTime.now()))
+                .filter(t -> t.getExpirationTime().isAfter(LocalDateTime.now(ZoneOffset.UTC)))
                 .map(t -> passwordEncoder.matches(rawCode, t.getVerificationCode()))
                 .orElse(false);
     }
