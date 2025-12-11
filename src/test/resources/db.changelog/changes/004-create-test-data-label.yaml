@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-test-data-label
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Backend"
+              - column:
+                  name: color
+                  value: "#3498db"
+
+        - insert:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Frontend"
+              - column:
+                  name: color
+                  value: "#e67e22"
+
+        - insert:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Bug"
+              - column:
+                  name: color
+                  value: "#e74c3c"

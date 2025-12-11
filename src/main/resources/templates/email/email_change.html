@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Change Verification</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
+<div style="background-color: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+    <h2 style="color: #2c7be5;">Email Change Verification</h2>
+    <p>Hello <strong>${username}</strong>,</p>
+
+    <p>We received a request to change the email address for your Task Management account to:</p>
+    <p style="font-size: 16px; font-weight: bold; color: #2c7be5;">${newEmail}</p>
+
+    <p>To confirm this change, please use the following verification code:</p>
+    <h3 style="background-color: #f0f2f5; display: inline-block; padding: 10px 20px; border-radius: 6px; letter-spacing: 2px;">
+        ${verificationCode}
+    </h3>
+
+    <p style="margin-top: 10px;">The code will expire in <strong>20 minutes</strong>.</p>
+
+    <p>If you did not request this change, please ignore this message.</p>
+
+    <p style="margin-top: 20px;">Best regards,<br>
+        <strong>Task Management System</strong></p>
+</div>
+</body>
+</html>

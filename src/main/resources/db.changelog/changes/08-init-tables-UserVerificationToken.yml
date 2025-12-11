@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08-init-tables-userVerificationToken
+      author: Karol Gajda
+      changes:
+        - createTable:
+            tableName: verification_tokens
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: verification_code
+                  type: VARCHAR(255)
+
+              - column:
+                  name: new_value
+                  type: VARCHAR(255)
+
+              - column:
+                  name: expiration_time
+                  type: TIMESTAMP
+
+              - column:
+                  name: type
+                  type: VARCHAR(50)

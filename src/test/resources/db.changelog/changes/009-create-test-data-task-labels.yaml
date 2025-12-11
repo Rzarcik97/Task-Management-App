@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-test-data-task-labels
+      author: Karol Gajda
+      changes:
+        - insert:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: label_id
+                  value: 1
+
+        - insert:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: label_id
+                  value: 2
+
+        - insert:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  value: 2
+              - column:
+                  name: label_id
+                  value: 3

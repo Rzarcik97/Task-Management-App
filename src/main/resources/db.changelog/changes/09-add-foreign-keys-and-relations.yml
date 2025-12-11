@@ -1,0 +1,101 @@
+databaseChangeLog:
+  - changeSet:
+      id: 09-add-foreign-keys-and-relations
+      author: Karol Gajda
+      changes:
+
+        - addForeignKeyConstraint:
+            baseTableName: attachments
+            baseColumnNames: task_id
+            referencedTableName: tasks
+            referencedColumnNames: id
+            constraintName: fk_attachments_task
+
+        - addForeignKeyConstraint:
+            baseTableName: attachments
+            baseColumnNames: uploaded_by
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_attachments_uploaded_by
+
+        - addForeignKeyConstraint:
+            baseTableName: comments
+            baseColumnNames: task_id
+            referencedTableName: tasks
+            referencedColumnNames: id
+            constraintName: fk_comments_task
+
+        - addForeignKeyConstraint:
+            baseTableName: comments
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_comments_user
+
+        - addForeignKeyConstraint:
+            baseTableName: project_members
+            baseColumnNames: project_id
+            referencedTableName: projects
+            referencedColumnNames: id
+            constraintName: fk_project_members_project
+
+        - addForeignKeyConstraint:
+            baseTableName: project_members
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_project_members_user
+
+        - addForeignKeyConstraint:
+            baseTableName: tasks
+            baseColumnNames: project_id
+            referencedTableName: projects
+            referencedColumnNames: id
+            constraintName: fk_tasks_project
+
+        - addForeignKeyConstraint:
+            baseTableName: tasks
+            baseColumnNames: assignee_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_tasks_assignee
+
+        - addForeignKeyConstraint:
+            baseTableName: verification_tokens
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_verification_tokens_user
+
+        - createTable:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: label_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            tableName: task_labels
+            columnNames: task_id, label_id
+            constraintName: pk_task_labels
+
+        - addForeignKeyConstraint:
+            baseTableName: task_labels
+            baseColumnNames: task_id
+            referencedTableName: tasks
+            referencedColumnNames: id
+            constraintName: fk_task_labels_task
+
+        - addForeignKeyConstraint:
+            baseTableName: task_labels
+            baseColumnNames: label_id
+            referencedTableName: labels
+            referencedColumnNames: id
+            constraintName: fk_task_labels_label

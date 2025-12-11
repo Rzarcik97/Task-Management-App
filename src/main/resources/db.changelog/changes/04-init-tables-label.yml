@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 04-init-tables-label
+      author: Karol Gajda
+      changes:
+        - createTable:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: color
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
