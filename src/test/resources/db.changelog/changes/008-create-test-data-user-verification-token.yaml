@@ -20,7 +20,7 @@ databaseChangeLog:
                   value: "$2a$10$encryptedPassword123"
               - column:
                   name: expiration_time
-                  valueDate: "2035-01-01T00:00:00"
+                  valueComputed: "DATE_ADD(UTC_TIMESTAMP(), INTERVAL 20 MINUTE)"
               - column:
                   name: type
                   value: "PASSWORD_CHANGE"
@@ -42,7 +42,7 @@ databaseChangeLog:
                   value: "newemail@example.com"
               - column:
                   name: expiration_time
-                  valueDate: "2035-01-01T00:00:00"
+                  valueComputed: "DATE_ADD(UTC_TIMESTAMP(), INTERVAL 20 MINUTE)"
               - column:
                   name: type
                   value: "EMAIL_CHANGE"

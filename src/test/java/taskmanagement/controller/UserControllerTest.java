@@ -29,7 +29,7 @@ import taskmanagement.service.EmailService;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 public class UserControllerTest {
-    //TODO czy istnieje dynamiczna metoda ustawiania expiration time
+
     protected static MockMvc mockMvc;
 
     @Autowired
