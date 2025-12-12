@@ -288,6 +288,12 @@ Then edit `.env` with your actual configuration values.
 By default, the project uses MySQL for production and Test container for tests.
 For test application need installed docker
 
+build project
+
+```bash
+mvn clean package
+```
+
 **Run application at docker:**
 
 ```bash
@@ -307,17 +313,6 @@ This will start:
 
 Prerequisites: Docker must be running (for MySQL and MailHog)
 
-Start only the database and mail server:
-```bash
-docker compose up mysqldb mailhog -d
-```
-
-
-build project
-
-```bash
-mvn clean package
-```
 Run the application:
 
 ```bash
