@@ -277,7 +277,7 @@ This prevents leaking secrets into GitHub and allows easy configuration per envi
 Create a file named .env in the project root, copy the contents of the file .env.example into created .env
 
 ```bash
-copy .env.example .env
+cp .env.example .env
 ```
 
 
