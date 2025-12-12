@@ -261,13 +261,14 @@ Below is the architecture flow:
 
 - Maven
 
-- MySQL (or Docker Container)
+- MySQL (Docker Container)
 
 **Clone the repository:**
 
 	git clone https://github.com/Rzarcik97/Task-Management-App.git
 
-Configure your database connection in src/main/resources/application.properties
+    cd Task-Management-App
+
 
 ## 🔐 Environment Variables (.env)
 
@@ -279,35 +280,50 @@ Create a file named .env in the project root, copy the contents of the file .env
 ```bash
 cp .env.example .env
 ```
+Then edit `.env` with your actual configuration values.
 
 
-##  Run locally
+##  Run application
 
-to run locally use command
+By default, the project uses MySQL for production and Test container for tests.
+For test application need installed docker
+
+**Run application at docker:**
+
+```bash
+docker compose up
+```
+
+This will start:
+- MySQL database
+- Spring Boot application
+- MailHog (email testing)
+
+**Access the application at:**
+- API: `http://localhost:8080`
+- MailHog UI: `http://localhost:8025`
+
+**or run locally with Maven use command:**
+
+Prerequisites: Docker must be running (for MySQL and MailHog)
+
+Start only the database and mail server:
+```bash
+docker compose up mysqldb mailhog -d
+```
+
+
+build project
+
+```bash
+mvn clean package
+```
+Run the application:
 
 ```bash
 mvn spring-boot:run
 ```
 
-Application starts at:
-```
-http://localhost:8080
-```
-## Build the project using Maven:
-
-By default, the project uses MySQL for production and Test container for tests.
-For test application need installed docker
-
-
-```bash
-mvn clean package
-```
-
-**Run the application:**
-
-```bash
-docker compose up
-```
 
 **Access the API at**  ```http://localhost:8080```
 
