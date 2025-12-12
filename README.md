@@ -265,11 +265,25 @@ Below is the architecture flow:
 
 **Clone the repository:**
 
-	git clone https://github.com/Rzarcik97/Book_Store.git
+	git clone https://github.com/Rzarcik97/Task-Management-App.git
 
 Configure your database connection in src/main/resources/application.properties
 
+## 🔐 Environment Variables (.env)
+
+The application uses environment variables to securely store sensitive configuration such as database credentials, JWT keys, mail settings, and API tokens.
+This prevents leaking secrets into GitHub and allows easy configuration per environment (local, test, production).
+
+Create a file named .env in the project root, copy the contents of the file .env.example into created .env
+
+```bash
+copy .env.example .env
+```
+
+
 ##  Run locally
+
+to run locally use command
 
 ```bash
 mvn spring-boot:run
