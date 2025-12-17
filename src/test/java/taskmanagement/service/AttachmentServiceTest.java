@@ -402,7 +402,7 @@ public class AttachmentServiceTest {
         Attachment attachment = new Attachment();
         attachment.setId(attachmentId);
         attachment.setTask(task);
-        attachment.setDropboxFileId("dbx123");
+        attachment.setPath("/dbx123");
         attachment.setFilename("test.pdf");
 
         byte[] expectedBytes = "file data".getBytes();
@@ -413,7 +413,7 @@ public class AttachmentServiceTest {
                 .thenReturn(Optional.of(attachment));
         doNothing().when(permissionValidator)
                 .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
-        when(dropboxService.downloadFile(attachment.getDropboxFileId()))
+        when(dropboxService.downloadFile(attachment.getPath()))
                 .thenReturn(expectedBytes);
         // when
         ResponseEntity<byte[]> response =
@@ -431,7 +431,7 @@ public class AttachmentServiceTest {
         verify(attachmentRepository).findById(attachmentId);
         verify(permissionValidator)
                 .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
-        verify(dropboxService).downloadFile(attachment.getDropboxFileId());
+        verify(dropboxService).downloadFile(attachment.getPath());
     }
 
     @Test

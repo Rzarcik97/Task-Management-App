@@ -108,7 +108,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                 attachment.getTask().getProject().getId(),
                 ProjectMember.Role.VIEWER);
 
-        byte[] fileData = dropboxService.downloadFile(attachment.getDropboxFileId());
+        byte[] fileData = dropboxService.downloadFile(attachment.getPath());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
