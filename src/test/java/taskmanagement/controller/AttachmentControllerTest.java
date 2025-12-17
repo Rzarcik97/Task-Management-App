@@ -59,7 +59,7 @@ public class AttachmentControllerTest {
 
     @WithMockUser(username = "john.doe@example.com")
     @Test
-    @DisplayName("Upload attachment - valid request - success")
+    @DisplayName("Upload attachment - valid request - should return 201")
     void uploadAttachment_validRequest_success() throws Exception {
 
         MockMultipartFile file = new MockMultipartFile(
@@ -82,7 +82,7 @@ public class AttachmentControllerTest {
                         multipart("/attachments/2")
                                 .file(file)
                 )
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn();
 
         AttachmentResponseDto response = objectMapper.readValue(
