@@ -57,16 +57,16 @@ public class ProjectController {
         return projectService.getUserProjects(email);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{projectId}")
     @Operation(
             summary = "Get Project Details",
             description = "Retrieve details of a specific project by ID"
     )
-    public ProjectResponseDto getProjectById(@PathVariable Long id) {
-        return projectService.getProjectById(id);
+    public ProjectResponseDto getProjectById(@PathVariable Long projectId) {
+        return projectService.getProjectById(projectId);
     }
 
-    @PostMapping("/{projectId}/Member")
+    @PostMapping("/{projectId}/member")
     @Operation(
             summary = "Add new Member to Project by ID",
             description = "Add new Member to existing Project by ID "
@@ -81,7 +81,7 @@ public class ProjectController {
         return projectService.addMemberToProject(projectId,member,email);
     }
 
-    @DeleteMapping("/{projectId}/Member")
+    @DeleteMapping("/{projectId}/member")
     @Operation(
             summary = "Delete Member from Project by ID",
             description = "Delete Member from existing Project by ID "

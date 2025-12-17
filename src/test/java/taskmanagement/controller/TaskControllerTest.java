@@ -155,8 +155,7 @@ public class TaskControllerTest {
     @DisplayName("Get Tasks by Project – success")
     void getTasksByProject_accessGranted_success() throws Exception {
 
-        mockMvc.perform(get("/tasks")
-                        .param("projectId", "1"))
+        mockMvc.perform(get("/tasks/by-project/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -166,8 +165,7 @@ public class TaskControllerTest {
     @DisplayName("Get Tasks by Project - User is not member of project – return 403")
     void getTasksByProject_accessDenied_success() throws Exception {
 
-        mockMvc.perform(get("/tasks")
-                        .param("projectId", "1"))
+        mockMvc.perform(get("/tasks/by-project/1"))
                 .andExpect(status().isForbidden());
     }
 
@@ -176,8 +174,7 @@ public class TaskControllerTest {
     @DisplayName("Get Tasks by Project – success")
     void getTasksByProject_missingProjectInDB_notFound() throws Exception {
 
-        mockMvc.perform(get("/tasks")
-                        .param("projectId", "999"))
+        mockMvc.perform(get("/tasks/by-project/999"))
                 .andExpect(status().isNotFound());
     }
 
