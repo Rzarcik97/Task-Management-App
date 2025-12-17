@@ -51,15 +51,15 @@ public class LabelController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping("/{id}")
+    @PatchMapping("/{labelId}")
     @Operation(summary = "Update Label",
             description = "Update an existing label by ID")
-    public LabelResponseDto updateLabel(@PathVariable Long id,
+    public LabelResponseDto updateLabel(@PathVariable Long labelId,
                                         @RequestBody LabelPatchRequestDto request,
                                         Authentication authentication) {
         String email = authentication.getName();
         log.info("Editing Label {}, by User {}", request.name(), email);
-        return labelService.updateLabel(id, request);
+        return labelService.updateLabel(labelId, request);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

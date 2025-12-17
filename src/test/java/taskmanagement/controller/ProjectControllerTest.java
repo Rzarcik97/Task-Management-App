@@ -152,7 +152,7 @@ public class ProjectControllerTest {
                 "anna@example.com",
                 ProjectMember.Role.MEMBER);
 
-        mockMvc.perform(post("/projects/1/Member")
+        mockMvc.perform(post("/projects/1/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -168,7 +168,7 @@ public class ProjectControllerTest {
                 "jane.smith@example.com",
                 ProjectMember.Role.MEMBER);
 
-        mockMvc.perform(post("/projects/2/Member")
+        mockMvc.perform(post("/projects/2/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -184,7 +184,7 @@ public class ProjectControllerTest {
                 "anna@example.com",
                 ProjectMember.Role.MEMBER);
 
-        mockMvc.perform(post("/projects/1/Member")
+        mockMvc.perform(post("/projects/1/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
@@ -199,7 +199,7 @@ public class ProjectControllerTest {
                 "",
                 ProjectMember.Role.MEMBER);
 
-        mockMvc.perform(post("/projects/1/Member")
+        mockMvc.perform(post("/projects/1/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -214,7 +214,7 @@ public class ProjectControllerTest {
                 "nonexisting@example.com",
                 ProjectMember.Role.MEMBER);
 
-        mockMvc.perform(post("/projects/1/Member")
+        mockMvc.perform(post("/projects/1/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound());
@@ -225,7 +225,7 @@ public class ProjectControllerTest {
     @DisplayName("Delete Member - asAdmin - delete member successfully")
     void deleteMember_asAdmin_success() throws Exception {
 
-        mockMvc.perform(delete("/projects/1/Member")
+        mockMvc.perform(delete("/projects/1/member")
                         .param("memberEmail", "john.doe@example.com"))
                 .andExpect(status().isOk());
     }
@@ -235,7 +235,7 @@ public class ProjectControllerTest {
     @DisplayName("Delete Member - asManager - delete member successfully")
     void deleteMember_asManager_success() throws Exception {
 
-        mockMvc.perform(delete("/projects/2/Member")
+        mockMvc.perform(delete("/projects/2/member")
                         .param("memberEmail", "jane.smith@example.com"))
                 .andExpect(status().isOk());
     }
@@ -245,7 +245,7 @@ public class ProjectControllerTest {
     @DisplayName("Delete Member - asMember - return 403")
     void deleteMember_forbidden() throws Exception {
 
-        mockMvc.perform(delete("/projects/1/Member")
+        mockMvc.perform(delete("/projects/1/member")
                         .param("memberEmail", "admin@taskmanager.com"))
                 .andExpect(status().isForbidden());
     }
@@ -255,7 +255,7 @@ public class ProjectControllerTest {
     @DisplayName("Delete Member - invalid request - return 400")
     void deleteMember_missingEmailInRequest() throws Exception {
 
-        mockMvc.perform(delete("/projects/1/Member"))
+        mockMvc.perform(delete("/projects/1/member"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -264,7 +264,7 @@ public class ProjectControllerTest {
     @DisplayName("Delete Member - non existing email in DB - return 404")
     void deleteMember_missingEmailInDB() throws Exception {
 
-        mockMvc.perform(delete("/projects/1/Member")
+        mockMvc.perform(delete("/projects/1/member")
                         .param("memberEmail", "nonexisting@taskmanager.com"))
                 .andExpect(status().isForbidden());
     }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import taskmanagement.dto.task.TaskPatchRequestDto;
@@ -41,23 +40,23 @@ public class TaskController {
         return taskService.createTask(request,email);
     }
 
-    @GetMapping
+    @GetMapping("/by-project/{projectId}")
     @Operation(summary = "Get Project Tasks",
             description = "Retrieve all tasks for a given project "
                     + "(projectId required as request param)")
-    public List<TaskResponseDto> getTasksByProject(@RequestParam("projectId") Long projectId,
+    public List<TaskResponseDto> getTasksByProject(@PathVariable Long projectId,
                                                    Authentication authentication) {
         String email = authentication.getName();
         return taskService.getTasksByProject(projectId,email);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{taskId}")
     @Operation(summary = "Get Task Details",
             description = "Retrieve details of a specific task by ID")
-    public TaskResponseDto getTaskById(@PathVariable Long id,
+    public TaskResponseDto getTaskById(@PathVariable Long taskId,
                                        Authentication authentication) {
         String email = authentication.getName();
-        return taskService.getTaskById(id,email);
+        return taskService.getTaskById(taskId,email);
     }
 
     @PatchMapping("/{taskId}")
