@@ -27,9 +27,9 @@ public class DropboxService {
         }
     }
 
-    public byte[] downloadFile(String fileId) {
+    public byte[] downloadFile(String filePath) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            dropboxClient.files().downloadBuilder(fileId).download(outputStream);
+            dropboxClient.files().downloadBuilder(filePath).download(outputStream);
             return outputStream.toByteArray();
         } catch (Exception e) {
             throw new FileStorageException("Failed to download file from Dropbox", e);
