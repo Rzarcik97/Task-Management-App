@@ -39,14 +39,14 @@ public class LabelControllerTest {
 
     @Test
     @WithMockUser(username = "admin@taskmanager.com",roles = "ADMIN")
-    @DisplayName("Create Label - access granted - success")
+    @DisplayName("Create Label - access granted - should return 201")
     void createLabel_ShouldCreate_WhenAdmin() throws Exception {
         LabelRequestDto createRequest = new LabelRequestDto("Test Label", "Green");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/labels")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createRequest)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(4L))
                 .andExpect(jsonPath("$.name").value("Test Label"))
                 .andExpect(jsonPath("$.color").value("Green"));

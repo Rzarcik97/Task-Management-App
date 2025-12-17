@@ -52,7 +52,7 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "admin@taskmanager.com")
-    @DisplayName("Create Task - as Admin – success")
+    @DisplayName("Create Task - as Admin – should return 201")
     void createTask_asAdmin_success() throws Exception {
 
         TaskRequestDto request = new TaskRequestDto(
@@ -71,7 +71,7 @@ public class TaskControllerTest {
         mockMvc.perform(post("/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("New Task2"))
                 .andExpect(jsonPath("$.description").value("Task description2"))
                 .andExpect(jsonPath("$.status").value("IN_PROGRESS"))
@@ -80,7 +80,7 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "john.doe@example.com")
-    @DisplayName("Create Task - as Manager – success")
+    @DisplayName("Create Task - as Manager – should return 201")
     void createTask_asManager_success() throws Exception {
 
         TaskRequestDto request = new TaskRequestDto(
@@ -99,7 +99,7 @@ public class TaskControllerTest {
         mockMvc.perform(post("/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("New Task"))
                 .andExpect(jsonPath("$.description").value("Task description"))
                 .andExpect(jsonPath("$.status").value("IN_PROGRESS"))

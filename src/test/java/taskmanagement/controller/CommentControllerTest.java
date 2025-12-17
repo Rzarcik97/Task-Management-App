@@ -41,7 +41,7 @@ public class CommentControllerTest {
 
     @Test
     @WithMockUser(username = "john.doe@example.com")
-    @DisplayName("Add comment - valid request - should return 200")
+    @DisplayName("Add comment - valid request - should return 201")
     void addComment_ValidRequest_ReturnsOk() throws Exception {
         CommentRequestDto request = new CommentRequestDto(
                 1L,
@@ -51,7 +51,7 @@ public class CommentControllerTest {
         mockMvc.perform(post("/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.text").value("This is a new test comment"))
                 .andExpect(jsonPath("$.id").exists());
     }

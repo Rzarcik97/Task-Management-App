@@ -61,12 +61,12 @@ public class ProjectControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
                         .param("projectManagerEmail", "anna@example.com"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Test Project"))
-                .andExpect(jsonPath("$.description").value("Some description"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name").value(request.name()))
+                .andExpect(jsonPath("$.description").value(request.description()))
                 .andExpect(jsonPath("$.members.length()").value(1))
-                .andExpect(jsonPath("$.members[0].username").value("anna@example.com"))
-                .andExpect(jsonPath("$.members[0].role").value("MANAGER"));
+                .andExpect(jsonPath("$.members[0].username").value(memberResponse.username()))
+                .andExpect(jsonPath("$.members[0].role").value(memberResponse.role()));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ProjectControllerTest {
         mockMvc.perform(post("/projects")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Test Project"))
                 .andExpect(jsonPath("$.description").value("Some description"))
                 .andExpect(jsonPath("$.members.length()").value(1))

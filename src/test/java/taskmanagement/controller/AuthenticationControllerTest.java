@@ -52,7 +52,7 @@ public class AuthenticationControllerTest {
         mockMvc.perform(post("/auth/registration")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.email").value("newuser@example.com"))
                 .andExpect(jsonPath("$.id").exists());
     }
