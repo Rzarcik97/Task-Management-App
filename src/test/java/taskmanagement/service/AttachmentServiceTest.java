@@ -23,6 +23,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -318,13 +322,6 @@ public class AttachmentServiceTest {
 
         String email = "viewer@example.com";
 
-        when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
-        doNothing().when(permissionValidator)
-                .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
-
-        when(attachmentRepository.findByTask_Id(taskId))
-                .thenReturn(List.of(attachment1, attachment2));
-
         AttachmentResponseDto dto1 = new AttachmentResponseDto(
                 attachment1.getId(),
                 task.getName(),
@@ -341,13 +338,20 @@ public class AttachmentServiceTest {
                 null,
                 null,
                 null);
+        Page<Attachment> page = new PageImpl<>(List.of(attachment1, attachment2));
+        Pageable pageable = PageRequest.of(0, 10);
 
+        when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
+        doNothing().when(permissionValidator)
+                .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
+        when(attachmentRepository.findByTask_Id(taskId,pageable))
+                .thenReturn(page);
         when(attachmentMapper.toDto(attachment1)).thenReturn(dto1);
         when(attachmentMapper.toDto(attachment2)).thenReturn(dto2);
 
         // when
         List<AttachmentResponseDto> result =
-                attachmentService.getAttachmentsByTask(taskId, email);
+                attachmentService.getAttachmentsByTask(taskId, email, pageable);
 
         // then
         assertEquals(2, result.size());
@@ -358,7 +362,7 @@ public class AttachmentServiceTest {
         verify(taskRepository).findById(taskId);
         verify(permissionValidator)
                 .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
-        verify(attachmentRepository).findByTask_Id(taskId);
+        verify(attachmentRepository).findByTask_Id(taskId,pageable);
         verify(attachmentMapper).toDto(attachment1);
         verify(attachmentMapper).toDto(attachment2);
     }
@@ -376,7 +380,7 @@ public class AttachmentServiceTest {
 
         // when + then
         assertThrows(EntityNotFoundException.class,
-                () -> attachmentService.getAttachmentsByTask(taskId, email));
+                () -> attachmentService.getAttachmentsByTask(taskId, email, Pageable.unpaged()));
 
         // verify
         verify(taskRepository).findById(taskId);

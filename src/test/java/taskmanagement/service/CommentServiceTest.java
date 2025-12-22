@@ -20,6 +20,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import taskmanagement.dto.comment.CommentRequestDto;
 import taskmanagement.dto.comment.CommentResponseDto;
 import taskmanagement.exceptions.AccessDeniedException;
@@ -341,7 +345,7 @@ public class CommentServiceTest {
         comment2.setUser(user);
         comment2.setText("Test comment2");
 
-        List<Comment> comments = List.of(comment1, comment2);
+        Page<Comment> page = new PageImpl<>(List.of(comment1, comment2));
 
         CommentResponseDto dto1 = new CommentResponseDto(
                 comment1.getId(),
@@ -356,15 +360,19 @@ public class CommentServiceTest {
                 comment2.getText(),
                 LocalDateTime.of(2020, 1, 1, 6, 0));
 
+        Pageable pageable = PageRequest.of(0, 10);
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
         doNothing().when(permissionValidator)
                 .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
-        when(commentRepository.findByTask_Id(taskId)).thenReturn(comments);
+        when(commentRepository.findByTask_Id(taskId, pageable)).thenReturn(page);
         when(commentMapper.toDto(comment1)).thenReturn(dto1);
         when(commentMapper.toDto(comment2)).thenReturn(dto2);
 
         // when
-        List<CommentResponseDto> result = commentServiceImpl.getCommentsByTask(taskId, email);
+        List<CommentResponseDto> result = commentServiceImpl.getCommentsByTask(
+                taskId,
+                email,
+                pageable);
 
         // then
         assertEquals(2, result.size());
@@ -375,7 +383,7 @@ public class CommentServiceTest {
         verify(taskRepository).findById(taskId);
         verify(permissionValidator)
                 .validateAccess(email, project.getId(), ProjectMember.Role.VIEWER);
-        verify(commentRepository).findByTask_Id(taskId);
+        verify(commentRepository).findByTask_Id(taskId, pageable);
         verify(commentMapper).toDto(comment1);
         verify(commentMapper).toDto(comment2);
     }
@@ -394,7 +402,7 @@ public class CommentServiceTest {
 
         // when + then
         assertThrows(EntityNotFoundException.class,
-                () -> commentServiceImpl.getCommentsByTask(taskId, email));
+                () -> commentServiceImpl.getCommentsByTask(taskId, email, Pageable.unpaged()));
 
         // verify
         verify(taskRepository).findById(taskId);

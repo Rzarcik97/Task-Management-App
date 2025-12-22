@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,14 +45,16 @@ public class AttachmentController {
     }
 
     @GetMapping("/{taskId}")
+    @PageableAsQueryParam
     @Operation(summary = "Get Task Attachments",
             description = "Retrieve all attachments for a given task."
                     + " Each attachment contains Dropbox File ID, which"
                     + " can be used to fetch the file.")
     public List<AttachmentResponseDto> getAttachmentsByTask(@PathVariable("taskId") Long taskId,
-                                                            Authentication authentication) {
+                                                            Authentication authentication,
+                                                            @ParameterObject Pageable pageable) {
         String email = authentication.getName();
-        return attachmentService.getAttachmentsByTask(taskId, email);
+        return attachmentService.getAttachmentsByTask(taskId, email, pageable);
     }
 
     @GetMapping("/{attachmentId}/download")

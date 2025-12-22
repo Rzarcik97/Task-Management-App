@@ -5,6 +5,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -44,10 +47,11 @@ public class LabelController {
     }
 
     @GetMapping
+    @PageableAsQueryParam
     @Operation(summary = "Get Labels",
             description = "Retrieve all available labels")
-    public List<LabelResponseDto> getLabels() {
-        return labelService.getAllLabels();
+    public List<LabelResponseDto> getLabels(@ParameterObject Pageable pageable) {
+        return labelService.getAllLabels(pageable);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

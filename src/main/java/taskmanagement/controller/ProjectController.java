@@ -5,6 +5,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -50,11 +53,13 @@ public class ProjectController {
     }
 
     @GetMapping
+    @PageableAsQueryParam
     @Operation(summary = "Get User Projects",
             description = "Retrieve all projects where the current user is a member")
-    public List<ProjectSummaryDto> getUserProjects(Authentication authentication) {
+    public List<ProjectSummaryDto> getUserProjects(Authentication authentication,
+                                                   @ParameterObject Pageable pageable) {
         String email = authentication.getName();
-        return projectService.getUserProjects(email);
+        return projectService.getUserProjects(email, pageable);
     }
 
     @GetMapping("/{projectId}")

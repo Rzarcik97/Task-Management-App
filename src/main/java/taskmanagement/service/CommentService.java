@@ -1,6 +1,7 @@
 package taskmanagement.service;
 
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 import taskmanagement.dto.comment.CommentRequestDto;
 import taskmanagement.dto.comment.CommentResponseDto;
 
@@ -12,5 +13,5 @@ public interface CommentService {
 
     void deleteComment(Long id, String email);
 
-    List<CommentResponseDto> getCommentsByTask(Long taskId, String email);
+    List<CommentResponseDto> getCommentsByTask(Long taskId, String email, Pageable pageable);
 }

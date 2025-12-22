@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import taskmanagement.dto.comment.CommentRequestDto;
 import taskmanagement.dto.comment.CommentResponseDto;
@@ -74,14 +75,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentResponseDto> getCommentsByTask(Long taskId, String email) {
+    public List<CommentResponseDto> getCommentsByTask(Long taskId,
+                                                      String email,
+                                                      Pageable pageable) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Task with id " + taskId + " not found"));
         permissionValidator.validateAccess(email,
                 task.getProject().getId(),
                 ProjectMember.Role.VIEWER);
-        return commentRepository.findByTask_Id(taskId)
+        return commentRepository.findByTask_Id(taskId,pageable)
                 .stream()
                 .map(commentMapper::toDto)
                 .toList();

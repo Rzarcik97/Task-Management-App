@@ -17,6 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import taskmanagement.dto.label.LabelPatchRequestDto;
 import taskmanagement.dto.label.LabelRequestDto;
 import taskmanagement.dto.label.LabelResponseDto;
@@ -189,18 +193,20 @@ class LabelServiceTest {
         Label l2 = new Label();
         l2.setId(2L);
         l2.setName("Feature");
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Label> page = new PageImpl<>(List.of(l1, l2));
 
-        when(labelRepository.findAll()).thenReturn(List.of(l1, l2));
+        when(labelRepository.findAll(pageable)).thenReturn(page);
 
         // when
-        List<LabelResponseDto> result = labelService.getAllLabels();
+        List<LabelResponseDto> result = labelService.getAllLabels(pageable);
 
         // then
         assertEquals(2, result.size());
         assertEquals("Bug", result.get(0).name());
         assertEquals("Feature", result.get(1).name());
 
-        verify(labelRepository).findAll();
+        verify(labelRepository).findAll(pageable);
         verify(labelMapper, times(2)).toDto(any());
     }
 

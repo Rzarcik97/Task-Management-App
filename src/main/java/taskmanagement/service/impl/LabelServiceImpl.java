@@ -3,6 +3,7 @@ package taskmanagement.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import taskmanagement.dto.label.LabelPatchRequestDto;
 import taskmanagement.dto.label.LabelRequestDto;
@@ -51,8 +52,8 @@ public class LabelServiceImpl implements LabelService {
     }
 
     @Override
-    public List<LabelResponseDto> getAllLabels() {
-        return labelRepository.findAll().stream()
+    public List<LabelResponseDto> getAllLabels(Pageable pageable) {
+        return labelRepository.findAll(pageable).stream()
                 .map(labelMapper::toDto)
                 .toList();
     }
