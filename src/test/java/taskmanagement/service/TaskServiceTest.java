@@ -27,6 +27,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import taskmanagement.dto.task.TaskPatchRequestDto;
 import taskmanagement.dto.task.TaskRequestDto;
 import taskmanagement.dto.task.TaskResponseDto;
@@ -338,18 +342,19 @@ public class TaskServiceTest {
         );
 
         String email = "viewer@example.com";
-
+        Page<Task> page = new PageImpl<>(List.of(task1, task2));
+        Pageable pageable = PageRequest.of(0, 10);
         when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
         doNothing().when(permissionValidator)
                 .validateAccess(email, projectId, ProjectMember.Role.VIEWER);
-        when(taskRepository.findByProject_Id(projectId))
-                .thenReturn(List.of(task1, task2));
+        when(taskRepository.findByProject_Id(projectId,pageable))
+                .thenReturn(page);
         when(taskMapper.toDto(task1)).thenReturn(dto1);
         when(taskMapper.toDto(task2)).thenReturn(dto2);
 
         // when
         List<TaskResponseDto> actual =
-                taskServiceImpl.getTasksByProject(projectId, email);
+                taskServiceImpl.getTasksByProject(projectId, email, pageable);
 
         // then
         assertThat(actual).containsExactly(dto1, dto2);
@@ -357,7 +362,7 @@ public class TaskServiceTest {
         verify(projectRepository,times(1)).findById(projectId);
         verify(permissionValidator,times(1))
                 .validateAccess(email, projectId, ProjectMember.Role.VIEWER);
-        verify(taskRepository,times(1)).findByProject_Id(projectId);
+        verify(taskRepository,times(1)).findByProject_Id(projectId,pageable);
     }
 
     @Test
@@ -369,12 +374,11 @@ public class TaskServiceTest {
         // given
         Long projectId = 1L;
         String email = "viewer@example.com";
-
         when(projectRepository.findById(projectId)).thenReturn(Optional.empty());
 
         // when + then
         assertThatThrownBy(() ->
-                taskServiceImpl.getTasksByProject(projectId, email)
+                taskServiceImpl.getTasksByProject(projectId, email, Pageable.unpaged())
         ).isInstanceOf(EntityNotFoundException.class);
 
         verify(projectRepository).findById(projectId);

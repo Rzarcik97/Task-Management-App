@@ -5,6 +5,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,13 +43,15 @@ public class CommentController {
         return commentService.addComment(request, email);
     }
 
+    @PageableAsQueryParam
     @GetMapping("/{taskId}")
     @Operation(summary = "Get Task Comments",
             description = "Retrieve all comments for a given task")
     public List<CommentResponseDto> getCommentsByTask(@PathVariable Long taskId,
-                                                      Authentication authentication) {
+                                                      Authentication authentication,
+                                                      @ParameterObject Pageable pageable) {
         String email = authentication.getName();
-        return commentService.getCommentsByTask(taskId, email);
+        return commentService.getCommentsByTask(taskId, email, pageable);
     }
 
     @PutMapping("/{commentId}")

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -86,14 +87,16 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
-    public List<AttachmentResponseDto> getAttachmentsByTask(Long taskId, String email) {
+    public List<AttachmentResponseDto> getAttachmentsByTask(Long taskId,
+                                                            String email,
+                                                            Pageable pageable) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Task with id " + taskId + " not found"));
         permissionValidator.validateAccess(email,
                 task.getProject().getId(),
                 ProjectMember.Role.VIEWER);
-        return attachmentRepository.findByTask_Id(taskId).stream()
+        return attachmentRepository.findByTask_Id(taskId,pageable).stream()
                 .map(attachmentMapper::toDto)
                 .toList();
     }

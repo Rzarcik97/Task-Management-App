@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import taskmanagement.dto.project.ProjectMemberRequest;
 import taskmanagement.dto.project.ProjectPatchRequestDto;
@@ -94,11 +95,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectSummaryDto> getUserProjects(String email) {
-        return projectRepository.findAllByMemberEmail(email).stream()
+    public List<ProjectSummaryDto> getUserProjects(String email, Pageable pageable) {
+        return projectRepository.findAllByMemberEmail(email,pageable)
                 .map(project -> new ProjectSummaryDto(project.getId(),
-                        project.getName()))
-                .toList();
+                        project.getName())).stream().toList();
     }
 
     @Override

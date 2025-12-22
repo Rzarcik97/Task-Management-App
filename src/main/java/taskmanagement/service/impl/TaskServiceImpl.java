@@ -3,6 +3,8 @@ package taskmanagement.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import taskmanagement.dto.task.TaskPatchRequestDto;
 import taskmanagement.dto.task.TaskRequestDto;
@@ -68,14 +70,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDto> getTasksByProject(Long projectId, String email) {
+    public List<TaskResponseDto> getTasksByProject(Long projectId,
+                                                   String email,
+                                                   Pageable pageable) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Project with id " + projectId + " not found"));
         permissionValidator.validateAccess(email,
                 project.getId(),
                 ProjectMember.Role.VIEWER);
-        List<Task> tasks = taskRepository.findByProject_Id(projectId);
+        Page<Task> tasks = taskRepository.findByProject_Id(projectId,pageable);
         return tasks.stream()
                 .map(taskMapper::toDto)
                 .toList();

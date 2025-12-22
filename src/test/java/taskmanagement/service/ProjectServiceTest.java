@@ -27,6 +27,10 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import taskmanagement.dto.project.ProjectMemberRequest;
 import taskmanagement.dto.project.ProjectPatchRequestDto;
 import taskmanagement.dto.project.ProjectRequestDto;
@@ -449,12 +453,14 @@ public class ProjectServiceTest {
         p2.setName("Project B");
 
         String email = "john@example.com";
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Project> page = new PageImpl<>(List.of(p1, p2));
 
-        when(projectRepository.findAllByMemberEmail(email))
-                .thenReturn(List.of(p1, p2));
+        when(projectRepository.findAllByMemberEmail(email,pageable))
+                .thenReturn(page);
 
         // When
-        List<ProjectSummaryDto> actual = projectServiceImpl.getUserProjects(email);
+        List<ProjectSummaryDto> actual = projectServiceImpl.getUserProjects(email, pageable);
 
         // Then
         assertThat(actual).hasSize(2);
@@ -463,7 +469,7 @@ public class ProjectServiceTest {
         assertThat(actual).extracting(ProjectSummaryDto::name)
                 .containsExactly("Project A", "Project B");
 
-        verify(projectRepository,times(1)).findAllByMemberEmail(email);
+        verify(projectRepository,times(1)).findAllByMemberEmail(email, pageable);
         verifyNoMoreInteractions(projectRepository);
     }
 
@@ -475,17 +481,18 @@ public class ProjectServiceTest {
     void getUserProjects_returnsEmptyListWhenNoProjects() {
         // Given
         String email = "john@example.com";
-
-        when(projectRepository.findAllByMemberEmail(email))
-                .thenReturn(List.of());
+        Page<Project> page = new PageImpl<>(List.of());
+        Pageable pageable = PageRequest.of(0, 10);
+        when(projectRepository.findAllByMemberEmail(email, pageable))
+                .thenReturn(page);
 
         // When
-        List<ProjectSummaryDto> actual = projectServiceImpl.getUserProjects(email);
+        List<ProjectSummaryDto> actual = projectServiceImpl.getUserProjects(email,pageable);
 
         // Then
         assertThat(actual).isEmpty();
 
-        verify(projectRepository,times(1)).findAllByMemberEmail(email);
+        verify(projectRepository,times(1)).findAllByMemberEmail(email, pageable);
         verifyNoMoreInteractions(projectRepository);
     }
 

@@ -5,6 +5,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,13 +44,15 @@ public class TaskController {
     }
 
     @GetMapping("/by-project/{projectId}")
+    @PageableAsQueryParam
     @Operation(summary = "Get Project Tasks",
             description = "Retrieve all tasks for a given project "
                     + "(projectId required as request param)")
     public List<TaskResponseDto> getTasksByProject(@PathVariable Long projectId,
-                                                   Authentication authentication) {
+                                                   Authentication authentication,
+                                                   @ParameterObject Pageable pageable) {
         String email = authentication.getName();
-        return taskService.getTasksByProject(projectId,email);
+        return taskService.getTasksByProject(projectId,email,pageable);
     }
 
     @GetMapping("/{taskId}")
