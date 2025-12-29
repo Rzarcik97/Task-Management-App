@@ -22,7 +22,8 @@ It supports:
 4. [How to Run](#how-to-run)
 5. [Database & Liquibase](#database--liquibase)
 6. [Testing](#testing)
-7. [CI/CD](#cicd)
+7. [Health Check](#health-check)
+8. [CI/CD](#cicd)
 
 
 ---
@@ -366,6 +367,70 @@ mvn test
 ```
 
 ---
+# <h1 id="health-check">❤️ Health Check</h1>
+
+The application exposes a health check endpoint using **Spring Boot Actuator**, which can be used for monitoring, container orchestration, and CI/CD readiness checks.
+
+### Health Endpoint
+
+`GET /api/actuator/health`
+
+### Example Response
+
+```json
+{
+   "status": "UP",
+   "components": {
+      "db": {
+         "status": "UP",
+         "details": {
+            "database": "MySQL",
+            "validationQuery": "isValid()"
+         }
+      },
+      "diskSpace": {
+         "status": "UP",
+         "details": {
+            "total": 1081101176832,
+            "free": 1022439587840,
+            "threshold": 10485760,
+            "path": "/application/.",
+            "exists": true
+         }
+      },
+      "mail": {
+         "status": "UP",
+         "details": {
+            "location": "mailhog:1025"
+         }
+      },
+      "ping": {
+         "status": "UP"
+      },
+      "ssl": {
+         "status": "UP",
+         "details": {
+            "validChains": [],
+            "invalidChains": []
+         }
+      }
+   }
+}
+```
+Purpose
+
+This endpoint is intended for:
+
+- Docker container health checks
+- CI/CD pipeline verification
+- Infrastructure monitoring
+- Load balancer health validation
+
+The endpoint is intentionally unauthenticated and lightweight,
+as it does not expose any sensitive data and follows standard industry practices for health monitoring.
+#### MailHog note
+The project uses **MailHog** for email testing during development.  
+When the application is started **locally (outside Docker)**, MailHog is usually **not running**.
 
 # <h1 id="cicd">🚀 CI/CD</h1>
 

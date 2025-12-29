@@ -95,14 +95,15 @@ public class AttachmentControllerTest {
         assertNotNull(response.filename());
     }
 
+    @WithMockUser(username = "anna@example.com")
     @Test
-    @DisplayName("Upload file - without authentication - should return 401")
-    void upload_Unauthorized_Returns401() throws Exception {
+    @DisplayName("Upload file - without authentication - should return 403")
+    void upload_Unauthorized_Returns403() throws Exception {
         MockMultipartFile file =
                 new MockMultipartFile("file", "a.txt", "text/plain", "aaa".getBytes());
 
         mockMvc.perform(multipart("/attachments/2").file(file))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "john.doe@example.com")
