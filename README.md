@@ -20,10 +20,11 @@ It supports:
 2. [Architecture](#system-architecture-overview)
 3. [Features](#features--api-overview)
 4. [How to Run](#how-to-run)
-5. [Database & Liquibase](#database--liquibase)
-6. [Testing](#testing)
-7. [Health Check](#health-check)
-8. [CI/CD](#cicd)
+5. [Demo](#demo)
+6. [Database & Liquibase](#database--liquibase)
+7. [Testing](#testing)
+8. [Health Check](#health-check)
+9. [CI/CD](#cicd)
 
 
 ---
@@ -324,6 +325,27 @@ mvn spring-boot:run
 - API: `http://localhost:8080/api/swagger-ui/index.html`
 - MailHog UI: `http://localhost:8025`
 
+# <h1 id="demo">🎬 Demo</h1>
+
+The application provides a **demo profile** that starts the system with
+predefined users, projects and tasks for easy testing and presentation.
+
+### ▶️ Run demo locally
+
+```bash
+SPRING_PROFILES_ACTIVE=demo mvn spring-boot:run
+```
+
+**Access the API at**
+- API: `http://localhost:8082/api/swagger-ui/index.html`
+
+In **demo profile** (`mail.enabled=false`), email sending is disabled and email content is logged instead.
+
+This allows the application to run locally and in demo mode without requiring
+an external SMTP server.
+
+For demo profile Docker Compose integration is explicitly disabled to allow running the application without Docker installed.
+
 # <h1 id="database--liquibase">🗄 Database & Liquibase</h1>
 
 
@@ -335,8 +357,8 @@ Liquibase automatically:
 
 ### 👥 Default Users
 
-| Role  | Email             | Password   |
-|-------|-------------------|------------|
+| Role  | Email                   | Password   |
+|-------|-------------------------|------------|
 | ADMIN | `admin@taskmanager.com` | `Admin123` |
 
 Files are located in:
@@ -344,6 +366,11 @@ Files are located in:
 src/main/resources/db/changelog/
 src/test/resources/db/changelog/
 ```
+📊 **Database example data**  
+Data example See [data-example.md](src/main/resources/db.changelog/data-example.md)
+
+Demo Data See [demo-data-example.md](src/main/resources/db.changelog/demo-data-example.md)
+
 ---
 # <h1 id="testing">🧪 Testing</h1>
 

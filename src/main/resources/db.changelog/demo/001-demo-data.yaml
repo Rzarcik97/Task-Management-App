@@ -1,0 +1,492 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-demo-data
+      author: Karol Gajda
+      context: demo
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: username, value: "john_doe" }
+              - column: { name: password, value: "$2a$10$JzRlGKGPuAU.W4mqgpULFeHaQc.HNbOVzrxeXJ9/LuyA3ldo7c376" } # User123
+              - column: { name: email, value: "john.doe@example.com" }
+              - column: { name: first_name, value: "John" }
+              - column: { name: last_name, value: "Doe" }
+              - column: { name: role, value: "USER" }
+              - column: { name: is_deleted, valueBoolean: false }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 3 }
+              - column: { name: username, value: "jane_smith" }
+              - column: { name: password, value: "$2a$10$.YScSlNwO6/ag8cH8MHIAutgof5RlliXno1Onq8qvAjYJDTxgNChq" } # User321
+              - column: { name: email, value: "jane.smith@example.com" }
+              - column: { name: first_name, value: "Jane" }
+              - column: { name: last_name, value: "Smith" }
+              - column: { name: role, value: "USER" }
+              - column: { name: is_deleted, valueBoolean: false }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 4 }
+              - column: { name: username, value: "Anna smith" }
+              - column: { name: password, value: "$2a$10$3XDwKWXWvFDg4I.eifSWPOwiBd43thm0iNuQO.aXr/hnMwRycRo0K" } # User123
+              - column: { name: email, value: "anna@example.com" }
+              - column: { name: first_name, value: "Anna" }
+              - column: { name: last_name, value: "Smith" }
+              - column: { name: role, value: "USER" }
+              - column: { name: is_deleted, valueBoolean: false }
+        - insert:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Task Management System"
+              - column:
+                  name: description
+                  value: "System for managing tasks and teams with labels, attachments, and comments."
+              - column:
+                  name: start_date
+                  valueDate: "2025-01-01"
+              - column:
+                  name: end_date
+                  valueDate: "2025-06-30"
+              - column:
+                  name: status
+                  value: "IN_PROGRESS"
+
+        - insert:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "E-commerce Platform"
+              - column:
+                  name: description
+                  value: "Online store project with catalog, cart, and order management."
+              - column:
+                  name: start_date
+                  valueDate: "2024-10-01"
+              - column:
+                  name: end_date
+                  valueDate: "2025-03-31"
+              - column:
+                  name: status
+                  value: "INITIATED"
+
+        - insert:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Mobile Banking App"
+              - column:
+                  name: description
+                  value: "Cross-platform app for personal banking and transactions."
+              - column:
+                  name: start_date
+                  valueDate: "2024-06-15"
+              - column:
+                  name: end_date
+                  valueDate: NULL
+              - column:
+                  name: status
+                  value: "COMPLETED"
+        - insert:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Design API Endpoints"
+              - column:
+                  name: description
+                  value: "Create REST API for task management including authentication and task CRUD operations."
+              - column:
+                  name: due_date
+                  valueDate: "2025-11-20"
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: assignee_id
+                  value: 1
+              - column:
+                  name: priority
+                  value: "HIGH"
+              - column:
+                  name: status
+                  value: "IN_PROGRESS"
+
+        - insert:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Implement Notification Service"
+              - column:
+                  name: description
+                  value: "Develop email and reminder notification system."
+              - column:
+                  name: due_date
+                  valueDate: "2025-11-25"
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: assignee_id
+                  value: 2
+              - column:
+                  name: priority
+                  value: "MEDIUM"
+              - column:
+                  name: status
+                  value: "NOT_STARTED"
+
+        - insert:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Prepare Project Documentation"
+              - column:
+                  name: description
+                  value: "Write user guide and developer documentation."
+              - column:
+                  name: due_date
+                  valueDate: NULL
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: assignee_id
+                  value: 3
+              - column:
+                  name: priority
+                  value: "LOW"
+              - column:
+                  name: status
+                  value: "IN_PROGRESS"
+        - insert:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Backend"
+              - column:
+                  name: color
+                  value: "#3498db"
+
+        - insert:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Frontend"
+              - column:
+                  name: color
+                  value: "#e67e22"
+
+        - insert:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Bug"
+              - column:
+                  name: color
+                  value: "#e74c3c"
+        - insert:
+            tableName: attachments
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: dropbox_file_id
+                  value: "dbx_001"
+              - column:
+                  name: filename
+                  value: "project-plan.pdf"
+              - column:
+                  name: path
+                  value: "/docs/project-plan.pdf"
+              - column:
+                  name: upload_date
+                  valueDate: "2025-01-01T10:00:00"
+              - column:
+                  name: uploaded_by
+                  value: 1
+
+        - insert:
+            tableName: attachments
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: task_id
+                  value: 2
+              - column:
+                  name: dropbox_file_id
+                  value: "dbx_002"
+              - column:
+                  name: filename
+                  value: "bug-report.txt"
+              - column:
+                  name: path
+                  value: "/reports/bug-report.txt"
+              - column:
+                  name: upload_date
+                  valueDate: "2025-01-03T15:30:00"
+              - column:
+                  name: uploaded_by
+                  value: 2
+
+        - insert:
+            tableName: attachments
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: task_id
+                  value: 3
+              - column:
+                  name: dropbox_file_id
+                  value: "dbx_003"
+              - column:
+                  name: filename
+                  value: "ui-design.png"
+              - column:
+                  name: path
+                  value: "/design/ui-design.png"
+              - column:
+                  name: upload_date
+                  valueDate: "2025-01-05T09:15:00"
+              - column:
+                  name: uploaded_by
+                  value: 3
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: text
+                  value: "Initial task setup completed successfully."
+              - column:
+                  name: timestamp
+                  valueDate: "2025-01-02T09:45:00"
+
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: task_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: text
+                  value: "Found a potential issue with the data validation logic."
+              - column:
+                  name: timestamp
+                  valueDate: "2025-01-04T11:30:00"
+
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: task_id
+                  value: 3
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: text
+                  value: "Design assets uploaded for review."
+              - column:
+                  name: timestamp
+                  valueDate: "2025-01-06T16:10:00"
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role
+                  value: "MANAGER"
+
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: role
+                  value: "MEMBER"
+
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: role
+                  value: "VIEWER"
+
+        - insert:
+            tableName: project_members
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: project_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: role
+                  value: "MANAGER"
+        - insert:
+            tableName: verification_tokens
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: verification_code
+                  value: "$2a$10$6B9LitvjfNjp2zuRol8b6eH2iUOpOxRTMha0.0oYsNRKwfjBtN0by" #123456
+              - column:
+                  name: new_value
+                  value: "$2a$10$pJ54Z5cng3xKtjB2EjELc.M6iW7.EgtTCusSNQhGEPVeZMhVKgtm6" #Admin1234
+              - column:
+                  name: expiration_time
+                  valueComputed: "DATEADD('MINUTE', 20, CURRENT_TIMESTAMP())"
+              - column:
+                  name: type
+                  value: "PASSWORD_CHANGE"
+
+        - insert:
+            tableName: verification_tokens
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: verification_code
+                  value: "$2a$10$EfY9NnR2HjzQP3MlX968neDyNyiRr7ZAxBGqcyDmAunajlDSs6LzW" # 654321
+              - column:
+                  name: new_value
+                  value: "newemail@example.com"
+              - column:
+                  name: expiration_time
+                  valueComputed: "DATEADD('MINUTE', 20, CURRENT_TIMESTAMP())"
+              - column:
+                  name: type
+                  value: "EMAIL_CHANGE"
+        - insert:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: label_id
+                  value: 1
+
+        - insert:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  value: 1
+              - column:
+                  name: label_id
+                  value: 2
+
+        - insert:
+            tableName: task_labels
+            columns:
+              - column:
+                  name: task_id
+                  value: 2
+              - column:
+                  name: label_id
+                  value: 3

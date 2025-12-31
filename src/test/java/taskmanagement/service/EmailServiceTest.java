@@ -40,6 +40,8 @@ public class EmailServiceTest {
     @BeforeEach
     void setup() {
         ReflectionTestUtils.setField(emailServiceImpl, "fromEmail", "noreply@test.com");
+        ReflectionTestUtils.setField(emailServiceImpl, "mailEnabled", true);
+
     }
 
     @Test
