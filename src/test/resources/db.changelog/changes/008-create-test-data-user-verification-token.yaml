@@ -17,7 +17,7 @@ databaseChangeLog:
                   value: "$2a$10$6B9LitvjfNjp2zuRol8b6eH2iUOpOxRTMha0.0oYsNRKwfjBtN0by" #123456
               - column:
                   name: new_value
-                  value: "$2a$10$encryptedPassword123"
+                  value: "$2a$10$pJ54Z5cng3xKtjB2EjELc.M6iW7.EgtTCusSNQhGEPVeZMhVKgtm6" #Admin1234
               - column:
                   name: expiration_time
                   valueComputed: "DATE_ADD(UTC_TIMESTAMP(), INTERVAL 20 MINUTE)"

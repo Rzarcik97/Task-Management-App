@@ -27,6 +27,9 @@ public class EmailServiceImpl implements EmailService {
     @Value("${mail.from.address}")
     private String fromEmail;
 
+    @Value("${mail.enabled:true}")
+    private boolean mailEnabled;
+
     @Override
     public void sendPasswordChangeVerification(User user, String code) {
         String template = loadTemplate("password_change.html");
@@ -73,6 +76,14 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private void sendHtmlEmail(String toEmail, String subject, String html) {
+
+        if (!mailEnabled) {
+            log.info("""
+                [DEMO MODE] Email sending disabled To: {} Subject: {} Content length: {}
+                    """, toEmail, subject, html.length());
+            return;
+        }
+
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
